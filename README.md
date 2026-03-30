@@ -23,10 +23,3 @@ Full requirements, screen specifications, design system, API reference, and asse
 | Watchlist | [watchlist.png](./docs/design/screens/watchlist.png) |
 | Watchlist — empty | [watchlist_empty.png](./docs/design/screens/watchlist_empty.png) |
 
-## Setup
-
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Copy `.env.example` to `.env` and add your TMDB Bearer token
-4. iOS: `npx pod-install && npx react-native run-ios`
-5. Android: `npx react-native run-android`
