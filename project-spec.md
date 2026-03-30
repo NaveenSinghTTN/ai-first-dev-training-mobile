@@ -81,7 +81,7 @@ The following decisions are **prescribed**. Do not deviate. Part of the assessme
 | API Client | Axios with a central client file | Tests whether developers can get AI to respect a shared abstraction |
 | Watchlist Persistence | AsyncStorage | Local only; no backend required |
 | Styling | `StyleSheet.create()` only | No third-party UI libraries; tests whether AI respects styling constraints |
-| Fonts | Manrope + Inter (via Expo Google Fonts) | Matches the design system |
+| Fonts | Manrope + Inter (via react-native-google-fonts) | Matches the design system |
 | Data Layer | Custom hooks per screen | AI defaults to inline fetching; this tests prompt precision |
 
 **Strictly prohibited:**
@@ -113,13 +113,13 @@ TMDB_IMAGE_BASE_URL=https://image.tmdb.org/t/p
 TMDB_ACCESS_TOKEN=your_bearer_token_here
 ```
 
-Use `react-native-dotenv` or Expo's built-in env handling to access these. Your central API client must read the token from environment variables — not from a hardcoded string.
+Use `react-native-dotenv` (Babel plugin) to access these. Your central API client must read the token from environment variables — not from a hardcoded string.
 
 > **Prompt challenge:** Direct AI to set up environment variable handling correctly, including the `.gitignore` entry and TypeScript type declarations for the env module. This is a common setup step AI gets partially wrong.
 
-### 4.3 React Native / Expo
+### 4.3 React Native CLI
 
-Use **Expo (SDK 51+)** with a bare or managed workflow. The project must run on both iOS and Android simulators.
+Use **React Native CLI** (not Expo). Initialise with `npx @react-native-community/cli init StreamList --template react-native-template-typescript`. The project must run on both iOS and Android simulators.
 
 ---
 
@@ -237,7 +237,7 @@ Define in `src/theme/typography.ts`. Use **Manrope** for display and headlines, 
 Used on all primary CTA buttons:
 
 ```typescript
-// Use expo-linear-gradient
+// Use react-native-linear-gradient
 colors: ['#FFB3AE', '#FF5351']
 start: { x: 0, y: 0 }
 end: { x: 1, y: 1 }
@@ -247,7 +247,7 @@ end: { x: 1, y: 1 }
 
 ```typescript
 backgroundColor: 'rgba(35, 35, 35, 0.70)'
-// BlurView from expo-blur, intensity: 20
+// BlurView from @react-native-community/blur, blurAmount: 20
 ```
 
 ### 6.5 Content Card — Standard Portrait
@@ -291,7 +291,7 @@ Every async section must have a skeleton state — not a spinner:
 
 ### 7.1 Home Screen
 
-**Reference Design:** Home screen — provided.
+**Reference Design:** [docs/design/screens/home.png](./docs/design/screens/home.png)
 
 #### Layout
 
@@ -359,7 +359,7 @@ Infinite scroll per row. Each row has independent loading skeleton on first rend
 
 ### 7.2 Search Screen
 
-**Reference Designs:** Search — default state and results state — both provided.
+**Reference Designs:** [search_default.png](./docs/design/screens/search_default.png) · [search_results.png](./docs/design/screens/search_results.png)
 
 #### State 1 — Default (No Query)
 
@@ -411,7 +411,7 @@ Debounce correctly implemented. Request cancellation demonstrably working (verif
 
 ### 7.3 Detail Screen
 
-**Reference Design:** Detail screen — provided.
+**Reference Design:** [docs/design/screens/detail.png](./docs/design/screens/detail.png)
 
 #### Layout
 
@@ -483,7 +483,7 @@ All three data sections displaying. Watchlist toggle functional and persisted. B
 
 ### 7.4 Watchlist Screen
 
-**Reference Designs:** Watchlist populated state and empty state — both provided.
+**Reference Designs:** [watchlist.png](./docs/design/screens/watchlist.png) · [watchlist_empty.png](./docs/design/screens/watchlist_empty.png)
 
 #### State 1 — Populated
 
@@ -823,7 +823,7 @@ Each dimension scored 1–5. **Total: 20 points. 16+ clears Phase 2.**
 
 | Day | Focus |
 |---|---|
-| Day 1 | Expo setup, environment variables, folder scaffold, theme tokens, central API client, navigation shell |
+| Day 1 | React Native CLI setup, environment variables, folder scaffold, theme tokens, central API client, navigation shell |
 | Day 2 | Home screen — hero card, genre chips, content rows |
 | Day 3 | Search screen — both states, debounce, request cancellation, recent searches |
 | Day 4 | Detail screen — parallel calls, independent section states, watchlist toggle, all edge cases |
