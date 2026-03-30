@@ -7,9 +7,7 @@
 
 Read this document fully before opening Cursor. The instinct to jump straight into the tool is exactly the habit this program is designed to break.
 
-**Estimated time to complete Phase 1:**
-- Fast Track (bench): 3–4 days
-- Steady Track (active project): 2 weeks
+**Estimated time to complete Phase 1:** 3 days
 
 ---
 
@@ -305,23 +303,11 @@ You will receive written feedback before moving to Phase 2.
 
 ## Timelines
 
-**Fast Track (bench — 8 hrs/day)**
-
 | Day | Goal |
 |---|---|
 | Day 1 | Watch videos, read all resources |
-| Day 2 | Cursor skill checklist (items 1–6) |
-| Day 3 | Cursor skill checklist (items 7–12) + `.cursor/rules` exercise |
-| Day 4 | Write and submit Prompt Strategy Document |
-
-**Steady Track (active project — 3–4 hrs/week)**
-
-| Week | Goal |
-|---|---|
-| Week 1 | Watch videos + read resources 1–2 |
-| Week 2 | Read resources 3–5 + Cursor skill checklist (items 1–6) |
-| Week 3 | Cursor skill checklist (items 7–12) + `.cursor/rules` exercise |
-| Week 4 (part) | Write and submit Prompt Strategy Document |
+| Day 2 | Cursor skill checklist (items 1–12) + `.cursor/rules` exercise |
+| Day 3 | Write and submit Prompt Strategy Document |
 
 ---
 
