@@ -7,8 +7,6 @@
 
 Read this document fully before opening Cursor. The instinct to jump straight into the tool is exactly the habit this program is designed to break.
 
-**Estimated time to complete Phase 1:** 3 days
-
 ---
 
 ## Part 1 — The Mindset Shift
@@ -49,31 +47,33 @@ AI-generated code can look right while being subtly wrong. The faster AI works, 
 **Failure mode 3: Fixing AI mistakes by hand**
 When the output is wrong, the reflex is to fix it directly. Resist this. Fix the prompt instead, or update your rules file. You are building a factory. Fix the factory, not the product it made.
 
+> **One thing to set expectations on:** Reviewing AI-generated code feels slow at first — slower than just writing it yourself. That is normal. You are building a new instinct. By Phase 2 it will feel natural.
+
 ---
 
 ## Part 2 — Watch This First
 
 **Before doing anything in Cursor, watch this video in full:**
 
-### Primary Video (Required)
+### 🎬 Primary Video (Required)
 **[Cursor for Beginners — Full Walkthrough](https://www.youtube.com/watch?v=2aldTxnbNt0)**
 Watch this first. It covers the interface, core features, and basic workflows. ~45 minutes. Do not skip.
 
-### Supplementary Video (Recommended)
+### 📹 Supplementary Video (Optional)
 **[Best Cursor Workflow That No One Talks About](https://www.youtube.com/watch?v=2PjmPU07KNs)**
-Watch the first 18 minutes. This covers PRD-driven development — writing a planning document before prompting — which is one of the most important workflow habits in AI-first development.
+Watch the first 18 minutes if time allows. Covers PRD-driven development — writing a planning document before prompting. Some developers found this video harder to follow; feel free to skip if the primary video covered enough.
 
 ---
 
-## Part 3 — Read These (In Order)
+## Part 3 — Read These
 
-Work through these resources in the order listed. Each one builds on the previous.
+### Required (do these before the exercises)
 
-### 1. Cursor Official Docs — Quick Start
+#### 1. Cursor Official Docs — Quick Start
 **[cursor.com/docs](https://cursor.com/docs)**
 Skim the Quickstart, Agent, and Context sections. ~20 minutes. Goal: understand the vocabulary (Tab, Chat, Composer, Agent, Rules, `@` references) before you start using them.
 
-### 2. Best Practices for Coding with Agents — Cursor Blog (Most Important)
+#### 2. Best Practices for Coding with Agents — Cursor Blog ⭐ Most Important
 **[cursor.com/blog/agent-best-practices](https://cursor.com/blog/agent-best-practices)**
 This is the single most important document in your reading list. Read it fully. Key things to internalise:
 
@@ -83,44 +83,49 @@ This is the single most important document in your reading list. Read it fully. 
 - **Rules are always-on context.** Your `.cursor/rules` file is read at the start of every conversation. It is the most important thing you configure in your project.
 - **Review AI output actively.** Use the diff view. Click Stop if the agent goes the wrong direction. Use Agent Review after completion. Do not let bad output accumulate.
 
-### 3. Cursor Rules Documentation
+### Recommended (read after completing the checklist if time allows)
+
+#### 3. Cursor Rules Documentation
 **[cursor.com/docs/rules](https://cursor.com/docs/rules)**
-Understand the four rule types: Always, Auto Attached, Agent Requested, and Manual. You need to know which type to use for which situation before the `.cursor/rules` exercise in Part 5.
+Understand the four rule types: Always, Auto Attached, Agent Requested, and Manual. Useful context before the `.cursor/rules` exercise in Part 6.
 
-### 4. How to Write Great Cursor Rules — Trigger.dev
+#### 4. How to Write Great Cursor Rules — Trigger.dev
 **[trigger.dev/blog/cursor-rules](https://trigger.dev/blog/cursor-rules)**
-Ten practical tips for writing effective rules files. Key ones:
+Ten practical tips for writing effective rules files.
 
-- Start with a high-level overview of what the AI is trying to achieve
-- Explicitly mark deprecated patterns and provide the correct alternatives
-- Include example code patterns in proper markdown with detailed descriptions
-- Add verification steps the AI must perform to validate its output
-- Keep rules updated — outdated rules produce outdated code
-
-### 5. A Field Guide to AI-First Development
+#### 5. A Field Guide to AI-First Development
 **[makingdatamistakes.com/ai-first-development](https://www.makingdatamistakes.com/ai-first-development/)**
-This is a long read (~22 minutes). Do not skip it. It is written by someone who built a 60,000-line production codebase without writing a single line of code by hand. The insights on planning docs, context management, multiple models, and "fix inputs not outputs" directly inform how you will work in Phase 2.
+Long read (~22 minutes) written by someone who built a 60,000-line production codebase without writing a single line of code by hand. Worth it when you have the time.
 
 ---
 
 ## Part 4 — The Cursor Skill Checklist
 
-Work through each item by doing the task. Do not just read about it. Each item takes 15–30 minutes.
+### Core (complete before the deliverable)
+
+These four items are the foundation. Each takes 20–40 minutes. Do them in order.
 
 | # | Skill | Task to Complete | ✓ |
 |---|---|---|---|
-| 1 | **Tab Completion** | Open any JS/TS file. Start typing a function. Accept, reject, and modify suggestions. Observe when it gets it right and when it does not. | ☐ |
-| 2 | **Inline Edit (`Cmd+K`)** | Select an existing function. Ask Cursor to refactor it. Then ask it to add error handling. Notice how the second prompt builds on the first. | ☐ |
-| 3 | **Chat (`Cmd+L`)** | Ask a question about a codebase — "how does navigation work here?" — without pointing to any file. Observe how it searches. | ☐ |
-| 4 | **Composer / Agent (`Cmd+I`)** | Ask Composer to create a new React Native screen component from scratch using a description only. Review the output before accepting. | ☐ |
-| 5 | **Plan Mode (`Shift+Tab`)** | Open Agent input. Toggle Plan Mode. Give a non-trivial task. Read the plan it produces. Edit it. Approve it. Observe the difference vs jumping straight to code. | ☐ |
-| 6 | **`@codebase` context** | Ask: "Where is API error handling done in this project?" — without tagging any file. Observe what it finds and whether it is correct. | ☐ |
-| 7 | **`@file` reference** | Ask Cursor to create a new component that follows the same pattern as an existing one. Reference the existing one with `@file`. Compare output to what you would get without the reference. | ☐ |
-| 8 | **`@docs` reference** | Add React Native documentation. Ask a question about FlatList performance optimisation using `@docs`. | ☐ |
-| 9 | **Multi-file edits** | Ask Composer to add a new prop to a component and update every place it is used across the project. Review the diff carefully before accepting. | ☐ |
-| 10 | **`.cursor/rules`** | Create a rules file for a React Native project. Write at least 10 rules covering structure, patterns, and constraints (see Part 5 for the full exercise). | ☐ |
-| 11 | **Prompt iteration** | Deliberately write a vague prompt. Get a bad output. Diagnose what was missing. Write a better follow-up. Document what changed and why it worked. | ☐ |
-| 12 | **New conversation discipline** | Start a new conversation when switching tasks. Use `@Past Chats` to reference the previous conversation. Observe how much cleaner the context is. | ☐ |
+| 1 | **Plan Mode (`Shift+Tab`)** | Open Agent input. Toggle Plan Mode. Give a non-trivial task — e.g. "Create a screen that shows a list of movies with search". Read the plan it produces. Edit one step. Approve it. Observe the difference vs jumping straight to code. | ☐ |
+| 2 | **Composer / Agent (`Cmd+I`)** | Ask Composer to create a new React Native screen component from a description only. Review the output carefully before accepting. Reject at least one suggestion and ask for a revision. | ☐ |
+| 3 | **`@codebase` and `@file`** | First: ask "Where is navigation handled in this project?" without tagging any file. Then: ask Cursor to create a new component that follows the same pattern as an existing one, referencing it with `@file`. Compare the quality of both outputs. | ☐ |
+| 4 | **`.cursor/rules`** | Create a rules file for a React Native project. Follow the exercise in Part 6. This checklist item and Part 6 are the same task. | ☐ |
+
+### Extended (complete during Phase 2 — not required before the deliverable)
+
+You will naturally cover these while building StreamList. No need to force them now.
+
+| # | Skill | When You'll Use It |
+|---|---|---|
+| 5 | **Tab Completion** | Throughout Phase 2 |
+| 6 | **Inline Edit (`Cmd+K`)** | Refactoring existing components |
+| 7 | **Chat (`Cmd+L`)** | Exploring an unfamiliar codebase |
+| 8 | **`@docs` reference** | When working with React Native APIs |
+| 9 | **Multi-file edits** | Updating shared components |
+| 10 | **Prompt iteration** | Every time AI gives you bad output |
+| 11 | **New conversation discipline** | When switching between features |
+| 12 | **Agent Review** | After every significant generation |
 
 ---
 
@@ -167,12 +172,12 @@ The R step is as important as the others. AI code can look correct and be subtly
 
 The difference: the strong prompts give AI a **bounded space** to work in. It knows what exists, what to reuse, what not to touch, and where the edges are.
 
-### One more thing: Plan before you prompt
+### Plan before you prompt
 
 From the Cursor blog: *"The most impactful change you can make is planning before coding."*
 
 For any task that takes more than one prompt:
-1. Write a brief planning note (can be in a `.md` file or just as your first message to the agent in Plan Mode)
+1. Write a brief planning note — or use Plan Mode as your first message to the agent
 2. Break the feature into discrete steps
 3. Get the agent to produce and review a plan before it writes code
 4. Execute step by step, reviewing after each
@@ -185,9 +190,26 @@ This is not bureaucracy. It is the habit that separates developers who use AI we
 
 Creating a rules file forces you to articulate things you usually just know — which is exactly the skill AI-first development demands. The rules file is permanent context. It is the most important thing you configure in your project.
 
-### What to include
+### Starter Rules
 
-Create a `.cursor/rules` file for a React Native project. Write **at least 10 rules** across these categories:
+Here are 5 rules to get you started on a React Native project. Your job is to understand why each one exists, then add at least 5 more of your own.
+
+```
+1. Always use TypeScript strict mode. Never use `any` type.
+
+2. All screens fetch data through a custom hook — no inline useEffect + fetch
+   in screen components.
+
+3. All colours come from `src/theme/colors.ts` — no hardcoded hex values
+   in component files.
+
+4. Never install a new package without explicitly asking me first.
+
+5. Follow the existing screen structure in `src/screens/HomeScreen.tsx`
+   as the reference pattern for all new screens.
+```
+
+Now add at least 5 more based on your own project conventions — think through:
 
 **Project structure**
 - Where do screens live? Components? Hooks? Utilities?
@@ -200,29 +222,21 @@ Create a `.cursor/rules` file for a React Native project. Write **at least 10 ru
 
 **Styling**
 - StyleSheet.create only? Styled components? NativeWind?
-- How is spacing and colour managed?
-
-**TypeScript**
-- Strict mode? What types are expected on props, hooks, API responses?
+- How is spacing managed?
 
 **What AI must never do without asking**
-- Install new packages
 - Change navigation structure
 - Modify files outside the current task scope
-- Use `any` type
 
 **Code quality**
 - Error handling conventions
-- Testing expectations
 - How are loading and error states handled?
 
 ### Reference
 
 Look at community examples at [cursor.directory/plugins/react-native](https://cursor.directory/plugins/react-native) to calibrate your thinking — not to copy from.
 
-### A rule from the Cursor blog that is worth putting in your rules file
-
-> *"Add rules only when you notice the agent making the same mistake repeatedly. Don't over-optimise before you understand your patterns."*
+> *"Add rules only when you notice the agent making the same mistake repeatedly. Don't over-optimise before you understand your patterns."* — Cursor blog
 
 Start with 10 solid rules. You will add more during Phase 2 as the project reveals your patterns.
 
@@ -231,6 +245,8 @@ Start with 10 solid rules. You will add more during Phase 2 as the project revea
 ## Part 7 — The Phase 1 Deliverable
 
 Submit a **Prompt Strategy Document** for one of the two features below. Choose the one that interests you more.
+
+A starter template is available at [`phase-1/prompt-strategy-template.md`](./prompt-strategy-template.md). Use it to structure your document — fill in your thinking, don't fill in the blanks mechanically.
 
 ---
 
@@ -281,16 +297,14 @@ You will be scored across four dimensions, each out of 5. **Total: 20 points. 16
 | **Failure awareness** | Are the identified failure points realistic? Is the recovery approach prompt-based (not "fix it manually")? | /5 |
 | **Clarity of thinking** | Does the document reflect genuine thought about the problem, or just surface compliance? Is the Plan Mode outline credible? | /5 |
 
-You will receive written feedback before moving to Phase 2.
-
 ---
 
 ## Quick Reference — Key Resources
 
 | Resource | Link |
 |---|---|
-| Primary video (required) | [youtube.com/watch?v=2aldTxnbNt0](https://www.youtube.com/watch?v=2aldTxnbNt0) |
-| PRD workflow video (recommended) | [youtube.com/watch?v=2PjmPU07KNs](https://www.youtube.com/watch?v=2PjmPU07KNs) |
+| 🎬 Primary video (required) | [youtube.com/watch?v=2aldTxnbNt0](https://www.youtube.com/watch?v=2aldTxnbNt0) |
+| 🎬 PRD workflow video (optional) | [youtube.com/watch?v=2PjmPU07KNs](https://www.youtube.com/watch?v=2PjmPU07KNs) |
 | Cursor official docs | [cursor.com/docs](https://cursor.com/docs) |
 | Agent best practices | [cursor.com/blog/agent-best-practices](https://cursor.com/blog/agent-best-practices) |
 | Cursor rules docs | [cursor.com/docs/rules](https://cursor.com/docs/rules) |
@@ -298,18 +312,9 @@ You will receive written feedback before moving to Phase 2.
 | AI-first field guide | [makingdatamistakes.com/ai-first-development](https://www.makingdatamistakes.com/ai-first-development/) |
 | React Native rules examples | [cursor.directory/plugins/react-native](https://cursor.directory/plugins/react-native) |
 | SpecStory (prompt log extension) | Install from Cursor extensions marketplace |
-
----
-
-## Timelines
-
-| Day | Goal |
-|---|---|
-| Day 1 | Watch videos, read all resources |
-| Day 2 | Cursor skill checklist (items 1–12) + `.cursor/rules` exercise |
-| Day 3 | Write and submit Prompt Strategy Document |
+| Deliverable template | [phase-1/prompt-strategy-template.md](./prompt-strategy-template.md) |
 
 ---
 
 *Phase 1 Briefing — AI-First Development Training Program*
-*Version 1.0*
+*Version 1.1 — Updated based on Batch 1 feedback*
