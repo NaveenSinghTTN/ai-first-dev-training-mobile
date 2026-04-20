@@ -2,7 +2,7 @@
 ### Phase 1 Deliverable — AI-First Development Training Program
 
 **Developer name:** [Your name]
-**Feature chosen:** [Option A — Watchlist Feature / Option B — Order Tracking Feature]
+**Feature chosen:** [Option A — Notifications Center / Option B — Activity Feed with Filters]
 **Date submitted:** [Date]
 
 ---

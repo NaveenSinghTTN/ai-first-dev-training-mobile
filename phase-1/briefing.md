@@ -107,22 +107,22 @@ These four items are the foundation. Each takes 20–40 minutes. Do them in orde
 
 | # | Skill | Task to Complete | ✓ |
 |---|---|---|---|
-| 1 | **Plan Mode (`Shift+Tab`)** | Open Agent input. Toggle Plan Mode. Give a non-trivial task - e.g. "Create a screen that shows a list of movies with search". Read the plan it produces. Edit one step. Approve it. Observe the difference vs jumping straight to code. | ☐ |
-| 2 | **Composer / Agent (`Cmd+I`)** | Ask Composer to create a new React Native screen component from a description only. Review the output carefully before accepting. Reject at least one suggestion and ask for a revision. | ☐ |
-| 3 | **`@codebase` and `@file`** | First: ask "Where is navigation handled in this project?" without tagging any file. Then: ask Cursor to create a new component that follows the same pattern as an existing one, referencing it with `@file`. Compare the quality of both outputs. | ☐ |
-| 4 | **`.cursor/rules`** | Create a rules file for a React Native project. Follow the exercise in Part 6. This checklist item and Part 6 are the same task. | ☐ |
+| 1 | **Plan Mode (`Shift+Tab`)** | Open Agent input. Toggle Plan Mode. Give a non-trivial task - e.g. "Add an endpoint that returns a paginated list of notifications with filters". Read the plan it produces. Edit one step. Approve it. Observe the difference vs jumping straight to code. | ☐ |
+| 2 | **Composer / Agent (`Cmd+I`)** | Ask Composer to create a new component or module from a description only - a UI component, an API endpoint, a background job, whatever fits your stack. Review the output carefully before accepting. Reject at least one suggestion and ask for a revision. | ☐ |
+| 3 | **`@codebase` and `@file`** | First: ask "Where is authentication handled in this project?" without tagging any file. Then: ask Cursor to create a new module that follows the same pattern as an existing one, referencing it with `@file`. Compare the quality of both outputs. | ☐ |
+| 4 | **`.cursor/rules`** | Create a rules file for your project. Follow the exercise in Part 6. This checklist item and Part 6 are the same task. | ☐ |
 
 ### Extended (complete during Phase 2 - not required before the deliverable)
 
-You will naturally cover these while building StreamList. No need to force them now.
+You will naturally cover these while building the Phase 2 project. No need to force them now.
 
 | # | Skill | When You'll Use It |
 |---|---|---|
 | 5 | **Tab Completion** | Throughout Phase 2 |
-| 6 | **Inline Edit (`Cmd+K`)** | Refactoring existing components |
+| 6 | **Inline Edit (`Cmd+K`)** | Refactoring existing code |
 | 7 | **Chat (`Cmd+L`)** | Exploring an unfamiliar codebase |
-| 8 | **`@docs` reference** | When working with React Native APIs |
-| 9 | **Multi-file edits** | Updating shared components |
+| 8 | **`@docs` reference** | When working with framework APIs (React, Next.js, Express, FastAPI, etc.) |
+| 9 | **Multi-file edits** | Updating shared utilities across modules |
 | 10 | **Prompt iteration** | Every time AI gives you bad output |
 | 11 | **New conversation discipline** | When switching between features |
 | 12 | **Agent Review** | After every significant generation |
@@ -150,27 +150,44 @@ The R step is as important as the others. AI code can look correct and be subtly
 
 ### Seeing CDIR in Practice
 
-**Example domain: OTT App**
+The two examples below are deliberately full-stack - one leans frontend, one leans backend - so you can see the same framework applied on both sides of the wire. Map the specifics to whatever stack you work in.
+
+**Example 1 - Notifications feature (frontend-leaning, full-stack)**
 
 ❌ **Weak prompt:**
-> "Build me a Continue Watching screen"
+> "Build a notifications system"
 
 ✅ **Strong prompt:**
-> "In our React Native project using our existing NavigationStack pattern (@file src/navigation/MainStack.tsx), create a `ContinueWatchingScreen` component. It should display a horizontal FlatList of content cards showing a thumbnail, title, and a progress bar indicating percentage watched. Use our existing `ContentCard` component (@file src/components/ContentCard.tsx) and `ProgressBar` component. Data comes from a `useContinueWatching` hook I will wire up separately - use a mock array of 5 items for now. No new libraries. Follow the screen structure in @file src/screens/HomeScreen.tsx as your reference pattern."
+> "In our app, build a `NotificationsPanel` component that renders a dropdown list of notifications with an unread count badge. It should:
+> - Consume `GET /api/notifications` via our existing query hook pattern (@file src/hooks/useQuery.ts) - do not add a new data-fetching library.
+> - Use our existing `Panel` layout component (@file src/components/Panel.tsx) as the shell.
+> - Support optimistic mark-as-read: on click, update local state immediately, then call `PATCH /api/notifications/:id/read`. On failure, revert and surface the error via our existing `toast` util (@file src/utils/toast.ts).
+> - Show an empty state when there are no notifications.
+> - Out of scope: real-time delivery (polling/WebSocket will be added in a follow-up task), notification preferences UI.
+>
+> Follow the component structure in @file src/components/InboxPanel.tsx as your reference. Mock the API response with 5 items for now - the endpoint itself is a separate task."
 
 ---
 
-**Example domain: E-commerce App**
+**Example 2 - Audit log / activity feed (backend-leaning, full-stack)**
 
 ❌ **Weak prompt:**
-> "Make a product detail page"
+> "Add an audit log"
 
 ✅ **Strong prompt:**
-> "In our React Native project, create a `ProductDetailScreen` component. It should include: a scrollable image gallery using our existing `ImageCarousel` component (@file src/components/ImageCarousel.tsx), product name and price (with strikethrough for original price when discounted), a horizontal chip list for size selection, an Add to Cart button pinned to the bottom using our `StickyFooter` pattern (@file src/components/StickyFooter.tsx), and a collapsible product description section. Use mock data. No new libraries. Follow the screen structure in @file src/screens/OrderSummaryScreen.tsx as your reference."
+> "Add a `GET /api/audit-log` endpoint to our backend that returns paginated audit events filtered by `userId`, `action`, and a `from`/`to` date range. Requirements:
+> - Follow the route/controller/service split used in @file server/routes/users.ts.
+> - Use the auth middleware in @file server/middleware/auth.ts - only admins can query across all users; regular users can only query their own events.
+> - Use our existing pagination helper (@file server/utils/pagination.ts). Default page size 25, max 100.
+> - The underlying `audit_events` table already exists - do not create a new migration. Schema is in @file server/db/schema/audit.ts.
+> - Validate query params with our existing Zod pattern (@file server/validators/common.ts). Return 400 on invalid input.
+> - Out of scope: the frontend `AuditLogView` component (separate task), writing new audit events (already handled by existing middleware).
+>
+> No new libraries. Match the error-handling conventions in @file server/routes/users.ts exactly."
 
 ---
 
-The difference: the strong prompts give AI a **bounded space** to work in. It knows what exists, what to reuse, what not to touch, and where the edges are.
+The difference: the strong prompts give AI a **bounded space** to work in. It knows what exists, what to reuse, what not to touch, and where the edges are. Notice how each prompt explicitly calls out what is **out of scope** - that constraint is often more important than what is in scope, because it stops AI from quietly expanding the change.
 
 ### Plan before you prompt
 
@@ -192,49 +209,62 @@ Creating a rules file forces you to articulate things you usually just know - wh
 
 ### Starter Rules
 
-Here are 5 rules to get you started on a React Native project. Your job is to understand why each one exists, then add at least 5 more of your own.
+Here are 5 rules to get you started. They are deliberately stack-agnostic - translate each one to your world (TypeScript, Python, Go, Ruby, whatever). Your job is to understand why each rule exists, then add at least 5 more specific to your project.
 
 ```
-1. Always use TypeScript strict mode. Never use `any` type.
+1. Always use strict type checking (TypeScript strict mode, Python type hints,
+   Go's standard typing, etc.). Never use `any`, untyped dictionaries, or
+   silent fallbacks in new code.
 
-2. All screens fetch data through a custom hook - no inline useEffect + fetch
-   in screen components.
+2. All data fetching goes through a shared client/service layer - no inline
+   fetch/axios/requests calls in UI components, route handlers, or view
+   logic.
 
-3. All colours come from `src/theme/colors.ts` - no hardcoded hex values
-   in component files.
+3. All styling/theming values come from a central tokens file (e.g.,
+   `theme/colors.ts`, `_variables.scss`, a tailwind config). No hardcoded
+   hex values, magic pixel sizes, or inline styles in new code.
 
-4. Never install a new package without explicitly asking me first.
+4. Never install a new package, add a new dependency, or introduce a new
+   framework without explicitly asking me first.
 
-5. Follow the existing screen structure in `src/screens/HomeScreen.tsx`
-   as the reference pattern for all new screens.
+5. Follow the existing patterns in [reference file for your stack] as the
+   template for new code in the same category - components, endpoints,
+   migrations, background jobs, etc.
 ```
 
 Now add at least 5 more based on your own project conventions - think through:
 
 **Project structure**
-- Where do screens live? Components? Hooks? Utilities?
-- What is the naming convention for files and folders?
+- Where do feature modules live? Shared utilities? Tests?
+- What is the naming convention for files, folders, classes, and functions?
 
 **Patterns and architecture**
-- How are API calls handled? (Direct fetch? Custom hook? Centralised client?)
-- What state management approach is used?
-- What navigation pattern does the project follow?
+- How are API calls handled? (Direct fetch? Shared client? Service layer? Repository pattern?)
+- What state / data management approach is used? (Redux, Zustand, server state libraries, a DB ORM, etc.)
+- How is routing / request handling organised?
 
-**Styling**
-- StyleSheet.create only? Styled components? NativeWind?
-- How is spacing managed?
+**Styling or presentation conventions**
+- Tokens, CSS modules, styled components, utility classes, template conventions
+- How is spacing / layout managed?
+- Formatting and linting conventions
+
+**Type safety and validation**
+- Boundary validation (Zod, Pydantic, JSON schema, etc.) - where is it required?
+- How are errors modelled and returned?
 
 **What AI must never do without asking**
-- Change navigation structure
+- Change routing / navigation structure
+- Modify database schema / migrations
+- Touch auth or security-sensitive modules
 - Modify files outside the current task scope
 
-**Code quality**
-- Error handling conventions
-- How are loading and error states handled?
+**Error handling and observability**
+- How are errors logged? What goes to Sentry / your logger?
+- How are loading, empty, and error states handled in the UI?
 
 ### Reference
 
-Look at community examples at [cursor.directory/plugins/react-native](https://cursor.directory/plugins/react-native) to calibrate your thinking - not to copy from.
+Browse community examples at [cursor.directory/plugins](https://cursor.directory/plugins) - pick the plugin closest to your stack (React, Next.js, Python, Rails, etc.) and read a few rules files to calibrate your thinking. Do not copy wholesale - the point is to see the level of specificity that works.
 
 > *"Add rules only when you notice the agent making the same mistake repeatedly. Don't over-optimise before you understand your patterns."* - Cursor blog
 
@@ -250,11 +280,15 @@ A starter template is available at [`phase-1/prompt-strategy-template.md`](./pro
 
 ---
 
-**Option A - OTT App: "Watchlist Feature"**
-A logged-in user can add and remove titles to their Watchlist, view their full Watchlist on a dedicated screen, and see a Watchlist indicator icon on content cards that are already saved.
+**Option A - "Notifications Center"**
+A signed-in user sees a notifications panel with an unread-count badge, can mark notifications read individually or all at once, filters by type (e.g. mentions, system, activity), and receives new notifications without a full page refresh (polling or WebSocket - your choice).
+*Covers:* UI state management, API design, real-time delivery, optimistic updates, read/unread state.
 
-**Option B - E-commerce App: "Order Tracking Feature"**
-A user can view their active orders, see real-time status updates for each order, and open a detail view showing the full order timeline and list of items.
+**Option B - "Activity Feed with Filters"**
+A user views a paginated activity feed showing recent events (posts, comments, logins, status changes, etc.), filters by event type / date range / actor, and opens an event detail view.
+*Covers:* query design, pagination strategy, filter state, empty and loading states, authorization rules on who can see what.
+
+> Both features are intentionally broad - pick whichever interests you more. You are free to emphasise the layer that matches your day job (frontend, backend, or full-stack) as long as your prompts cover the **full surface area** of the feature: data model, API, UI, error handling.
 
 ---
 
@@ -310,11 +344,11 @@ You will be scored across four dimensions, each out of 5. **Total: 20 points. 16
 | Cursor rules docs | [cursor.com/docs/rules](https://cursor.com/docs/rules) |
 | How to write great cursor rules | [trigger.dev/blog/cursor-rules](https://trigger.dev/blog/cursor-rules) |
 | AI-first field guide | [makingdatamistakes.com/ai-first-development](https://www.makingdatamistakes.com/ai-first-development/) |
-| React Native rules examples | [cursor.directory/plugins/react-native](https://cursor.directory/plugins/react-native) |
+| Cursor community rules (all stacks) | [cursor.directory/plugins](https://cursor.directory/plugins) |
 | SpecStory (prompt log extension) | Install from Cursor extensions marketplace |
 | Deliverable template | [phase-1/prompt-strategy-template.md](./prompt-strategy-template.md) |
 
 ---
 
 *Phase 1 Briefing - AI-First Development Training Program*
-*Version 1.1 - Updated based on Batch 1 feedback*
+*Version 2.0 - Universal (full-stack track)*
