@@ -18,6 +18,10 @@ Covers the mindset shift, Cursor skill checklist, the CDIR prompt framework, `.c
 
 Build a React Native OTT content discovery and watchlist app using the prescribed stack (TypeScript, React Navigation v6, Zustand, Axios, React Native CLI). Assessed on architecture, feature completeness, AI-first process, and judgment.
 
+### Showcase
+
+At the end of Phase 2, each developer walks through their build in a 15-minute session. See [phase-2/showcase-guide.md](./phase-2/showcase-guide.md) for the format and what we are looking for.
+
 ### Design
 
 - **Live design file:** [Stitch by Google](https://stitch.withgoogle.com/projects/18386357471434296476)
